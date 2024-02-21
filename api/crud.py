@@ -26,11 +26,12 @@ def update_todo(db: Session, todo_id: int, todo: schemas.TodoUpdate):
     db.refresh(todo_data)
     return todo_data
 
+# Rewrite delete function to Fix - sqlalchemy.orm.exc.UnmappedInstanceError: Class 'builtins.NoneType' is not mapped
+
 def delete_todo(db: Session, todo_id: int):
     todo_data = db.query(models.Todo).filter(models.Todo.id == todo_id).first()
     db.delete(todo_data)
     db.commit()
-    return todo_data
 
 
     

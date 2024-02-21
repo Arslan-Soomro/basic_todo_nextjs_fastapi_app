@@ -54,11 +54,12 @@ def update_todo(todo_id: int, todo: schemas.TodoUpdate, db: Session = Depends(ge
         raise HTTPException(status_code=404, detail="Todo not found")
     return db_todo
 
+# FIXME - sqlalchemy.orm.exc.UnmappedInstanceError: Class 'builtins.NoneType' is not mapped
 @apiRouter.delete("/todos/{todo_id}", tags=["Todos"], response_model=schemas.Todo)
 def delete_todo(todo_id: int, db: Session = Depends(get_db)) -> schemas.Todo | HTTPException:
     db_todo = crud.delete_todo(db, todo_id)
     if db_todo is None:
-        raise HTTPException(status_code=404, detail="Todo not found")
+       raise HTTPException(status_code=404, detail="Todo not found")
     return db_todo
 
 app.include_router(apiRouter, prefix="/api");
