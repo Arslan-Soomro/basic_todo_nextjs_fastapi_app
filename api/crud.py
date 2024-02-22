@@ -30,8 +30,11 @@ def update_todo(db: Session, todo_id: int, todo: schemas.TodoUpdate):
 
 def delete_todo(db: Session, todo_id: int):
     todo_data = db.query(models.Todo).filter(models.Todo.id == todo_id).first()
+    if(todo_data == None): return None;
+
     db.delete(todo_data)
     db.commit()
+    return todo_data
 
 
     
